@@ -35,7 +35,7 @@ google = oauth.register(
     server_metadata_url='https://accounts.google.com/.well-known/openid-configuration',
     client_kwargs={
         'scope': 'openid email profile',
-        'aud': '536271048775-3otj0sgbdsup1nsn562mddq2f3qsn0ph.apps.googleusercontent.com',
+        'aud': 'GOOGLE_CLIENT_ID',
         
     }
 )
@@ -60,15 +60,6 @@ def index():
         # If the user is not logged in, show a prompt to log in
         return render_template('index.html')
 
-
-'''
-@app.route('/google')
-def google_login():
-    session.clear()  
-    redirect_uri = url_for('authorize', _external=True)   # 'authorize' is the callback route
-    logging.debug(f"Redirect URI: {redirect_uri}")  # Log redirect URL
-    return google.authorize_redirect(redirect_uri)  # type: ignore
-'''
 
 @app.route('/signup')
 def signup():
@@ -98,15 +89,6 @@ def authorize():
         session['user'] = user_info
         return redirect('/')
    
-'''
-@app.route('/profile')
-def profile():
-    """Display user profile"""
-    user = session.get('user')
-    if not user:
-        return redirect('/login')
-    return render_template('profile.html', user=user)
-'''
 
 @app.route('/logout')
 def logout():
@@ -126,7 +108,7 @@ def weather():
             city = 'mumbai'
   
         # API key for OpenWeatherMap 
-        api_key = 'bfded00eb9ee818074bc2745de187c87'
+        api_key = 'bfded00eb9ee818074bc2745de187c87'   # Replace with your API Key api_key = 'YOUR_API_KEY'
 
         try:
     
